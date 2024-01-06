@@ -56,6 +56,21 @@ void printStudentArray(Student studentArray[],int numberOfStudents){
     }
 }
 
+void writeIntoFile(char* fileName,Student studentArray[],int numberOfStudents){
+    FILE *sortedData=fopen(fileName,"w");
+
+    if(sortedData==NULL){
+        printf("ERROR IN OPENING FILE!!\n");
+        return;
+    }
+
+    for(int i=0;i<numberOfStudents;i++){
+        fprintf(sortedData, "%d,%s,%.2f\n", studentArray[i].rollNumber, studentArray[i].name, studentArray[i].totalMarks);
+    }
+
+    fclose(sortedData);
+}
+
 int main(){
     FILE *studentData=fopen("StudentData.txt","r");
 
@@ -82,23 +97,27 @@ int main(){
 
     printf("The Student Data after sorting [By roll, bubblesort]:\n");
     printStudentArray(copyOfStudents,numberOfStudents);
+    writeIntoFile("BubbleSort.txt",copyOfStudents,numberOfStudents);
 
     copyArray(students,copyOfStudents,numberOfStudents);
     qsort(copyOfStudents,numberOfStudents,sizeof(Student),compareByRollNumber);
 
     printf("The Student Data after sorting [By roll, qsort]:\n");
     printStudentArray(copyOfStudents,numberOfStudents);
+    writeIntoFile("QuickSortRoll.txt",copyOfStudents,numberOfStudents);
 
     copyArray(students,copyOfStudents,numberOfStudents);
     qsort(copyOfStudents,numberOfStudents,sizeof(Student),compareByTotalMarks);
 
     printf("The Student Data after sorting [By total marks, qsort]:\n");
     printStudentArray(copyOfStudents,numberOfStudents);
+    writeIntoFile("QuickSortMarks.txt",copyOfStudents,numberOfStudents);
 
     copyArray(students,copyOfStudents,numberOfStudents);
     qsort(copyOfStudents,numberOfStudents,sizeof(Student),compareByName);
 
     printf("The Student Data after sorting [By name, qsort]:\n");
     printStudentArray(copyOfStudents,numberOfStudents);
+    writeIntoFile("QuickSortNames.txt",copyOfStudents,numberOfStudents);
     return 0;
 }
