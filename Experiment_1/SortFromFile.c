@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<time.h>
+#include<stdbool.h>
 
 #define MAX_STUDENT_NUMBER 100
 #define MAX_NAME_LENGTH 50
@@ -20,9 +21,14 @@ void swap(Student *a,Student *b){
 
 void bubbleSort(Student studentArray[],int numberOfStudents){
     for(int i=0;i<numberOfStudents-1;i++){
+        bool swapped=false;
         for(int j=0;j<numberOfStudents-i-1;j++){
-            if(studentArray[j].rollNumber>studentArray[j+1].rollNumber) swap(&studentArray[j],&studentArray[j+1]);
+            if(studentArray[j].rollNumber>studentArray[j+1].rollNumber){
+                 swap(&studentArray[j],&studentArray[j+1]);
+                 swapped=true;
+            }
         }
+        if(!swapped) break;
     }
 }
 
