@@ -12,6 +12,20 @@ typedef struct Student{
     float totalMarks;
 } Student;
 
+void swap(Student *a,Student *b){
+    Student temp=*a;
+    *a=*b;
+    *b=temp;
+}
+
+void bubbleSort(Student studentArray[],int numberOfStudents){
+    for(int i=0;i<numberOfStudents-1;i++){
+        for(int j=0;j<numberOfStudents-i-1;j++){
+            if(studentArray[j].rollNumber>studentArray[j+1].rollNumber) swap(&studentArray[j],&studentArray[j+1]);
+        }
+    }
+}
+
 void printStudentArray(Student studentArray[],int numberOfStudents){
     for(int i=0;i<numberOfStudents;i++){
         printf("\t%d\t%s\t%.2f\n",studentArray[i].rollNumber,studentArray[i].name,studentArray[i].totalMarks);
@@ -36,6 +50,11 @@ int main(){
     fclose(studentData);
 
     printf("The Student Data:\n");
+    printStudentArray(students,numberOfStudents);
+
+    bubbleSort(students,numberOfStudents);
+
+    printf("The Student Data after sorting:\n");
     printStudentArray(students,numberOfStudents);
     return 0;
 }
