@@ -13,6 +13,12 @@ typedef struct Student{
     float totalMarks;
 } Student;
 
+void copyArray(Student main[],Student copy[],int numberOfStudents){
+    for(int i=0;i<numberOfStudents;i++){
+        copy[i]=main[i];
+    }
+}
+
 void swap(Student *a,Student *b){
     Student temp=*a;
     *a=*b;
@@ -32,6 +38,18 @@ void bubbleSort(Student studentArray[],int numberOfStudents){
     }
 }
 
+int compareByRollNumber(const void *a,const void* b){
+    return ((Student*)a)->rollNumber-((Student*)b)->rollNumber;
+}
+
+int compareByName(const void *a,const void* b){
+    return strcmp(((Student*)a)->name,((Student*)b)->name);
+}
+
+int compareByTotalMarks(const void *a,const void* b){
+    return ((Student*)a)->totalMarks-((Student*)b)->totalMarks;
+}
+
 void printStudentArray(Student studentArray[],int numberOfStudents){
     for(int i=0;i<numberOfStudents;i++){
         printf("\t%d\t%s\t%.2f\n",studentArray[i].rollNumber,studentArray[i].name,studentArray[i].totalMarks);
@@ -47,6 +65,7 @@ int main(){
     }
 
     Student students[MAX_STUDENT_NUMBER];
+    Student copyOfStudents[MAX_STUDENT_NUMBER];
     int numberOfStudents=0;
 
     while(fscanf(studentData,"%d,%[^,],%f",&students[numberOfStudents].rollNumber,students[numberOfStudents].name,&students[numberOfStudents].totalMarks)!=EOF){
@@ -58,9 +77,28 @@ int main(){
     printf("The Student Data:\n");
     printStudentArray(students,numberOfStudents);
 
-    bubbleSort(students,numberOfStudents);
+    copyArray(students,copyOfStudents,numberOfStudents);
+    bubbleSort(copyOfStudents,numberOfStudents);
 
-    printf("The Student Data after sorting:\n");
-    printStudentArray(students,numberOfStudents);
+    printf("The Student Data after sorting [By roll, bubblesort]:\n");
+    printStudentArray(copyOfStudents,numberOfStudents);
+
+    copyArray(students,copyOfStudents,numberOfStudents);
+    qsort(copyOfStudents,numberOfStudents,sizeof(Student),compareByRollNumber);
+
+    printf("The Student Data after sorting [By roll, qsort]:\n");
+    printStudentArray(copyOfStudents,numberOfStudents);
+
+    copyArray(students,copyOfStudents,numberOfStudents);
+    qsort(copyOfStudents,numberOfStudents,sizeof(Student),compareByTotalMarks);
+
+    printf("The Student Data after sorting [By total marks, qsort]:\n");
+    printStudentArray(copyOfStudents,numberOfStudents);
+
+    copyArray(students,copyOfStudents,numberOfStudents);
+    qsort(copyOfStudents,numberOfStudents,sizeof(Student),compareByName);
+
+    printf("The Student Data after sorting [By name, qsort]:\n");
+    printStudentArray(copyOfStudents,numberOfStudents);
     return 0;
 }
