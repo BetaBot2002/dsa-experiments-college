@@ -14,7 +14,7 @@ typedef struct Student{
 
 void printStudentArray(Student studentArray[],int numberOfStudents){
     for(int i=0;i<numberOfStudents;i++){
-        printf("\t%d\t%s\t%f\n",studentArray[i].rollNumber,studentArray[i].name,studentArray[i].totalMarks);
+        printf("\t%d\t%s\t%.2f\n",studentArray[i].rollNumber,studentArray[i].name,studentArray[i].totalMarks);
     }
 }
 
