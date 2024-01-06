@@ -106,7 +106,7 @@ int main(){
     bubbleSort(copyOfStudents,numberOfStudents);
     bubble_sort_end=clock();
 
-    printf("The Student Data after sorting [By roll, bubblesort]:\n");
+    // printf("The Student Data after sorting [By roll, bubblesort]:\n");
     // printStudentArray(copyOfStudents,numberOfStudents);
     writeIntoFile("BubbleSort.txt",copyOfStudents,numberOfStudents);
 
@@ -116,7 +116,7 @@ int main(){
     qsort(copyOfStudents,numberOfStudents,sizeof(Student),compareByRollNumber);
     quick_sort_roll_end=clock();
 
-    printf("The Student Data after sorting [By roll, qsort]:\n");
+    // printf("The Student Data after sorting [By roll, qsort]:\n");
     // printStudentArray(copyOfStudents,numberOfStudents);
     writeIntoFile("QuickSortRoll.txt",copyOfStudents,numberOfStudents);
 
@@ -126,7 +126,7 @@ int main(){
     qsort(copyOfStudents,numberOfStudents,sizeof(Student),compareByTotalMarks);
     quick_sort_marks_end=clock();
 
-    printf("The Student Data after sorting [By total marks, qsort]:\n");
+    // printf("The Student Data after sorting [By total marks, qsort]:\n");
     // printStudentArray(copyOfStudents,numberOfStudents);
     writeIntoFile("QuickSortMarks.txt",copyOfStudents,numberOfStudents);
 
@@ -136,7 +136,7 @@ int main(){
     qsort(copyOfStudents,numberOfStudents,sizeof(Student),compareByName);
     quick_sort_name_end=clock();
 
-    printf("The Student Data after sorting [By name, qsort]:\n");
+    // printf("The Student Data after sorting [By name, qsort]:\n");
     // printStudentArray(copyOfStudents,numberOfStudents);
     writeIntoFile("QuickSortNames.txt",copyOfStudents,numberOfStudents);
 
