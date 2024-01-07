@@ -136,7 +136,7 @@ void postorderTraversal(AVLNode* root){
 
 int main(){
     AVLNode* root=NULL;
-        FILE *studentData=fopen("StudentData.txt","r");
+    FILE *studentData=fopen("StudentData.txt","r");
 
     if(studentData==NULL){
         printf("ERROR IN OPENING FILE!!\n");
