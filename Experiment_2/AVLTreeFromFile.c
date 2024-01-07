@@ -134,29 +134,6 @@ void postorderTraversal(AVLNode* root){
     }
 }
 
-void printTree(AVLNode* root) {
-    if (root == NULL) return;
-
-    printf("Node: %d, ", root->data);
-    printf("Left Child: ");
-    if (root->left != NULL) {
-        printf("%d", root->left->data);
-    } else {
-        printf("NULL");
-    }
-
-    printf(", Right Child: ");
-    if (root->right != NULL) {
-        printf("%d", root->right->data);
-    } else {
-        printf("NULL");
-    }
-    
-    printf(", Balance Factor: %d\n", getBalance(root));
-    printTree(root->left);
-    printTree(root->right);
-}
-
 int main(){
     AVLNode* root=NULL;
         FILE *studentData=fopen("StudentData.txt","r");
@@ -186,10 +163,6 @@ int main(){
 
     printf("The Post Order Traversal of the Tree is:\n");
     postorderTraversal(root);
-
-    // printf("The Visualization of the Tree:\n");
-    // printTree(root);
-
 
     return 0;
 }
