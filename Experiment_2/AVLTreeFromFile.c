@@ -20,6 +20,14 @@ typedef struct AVLNode{
     int height;
 } AVLNode;
 
+Student createStudent(int rollNumber,char* name,float totalMarks){
+    Student newStudent;
+    newStudent.rollNumber=rollNumber;
+    strcpy(newStudent.name,name);
+    newStudent.totalMarks=totalMarks;
+    return newStudent;
+}
+
 AVLNode* createNode(Student data){
     AVLNode* newNode=(AVLNode*)malloc(sizeof(AVLNode));
     newNode->data=data;
@@ -200,14 +208,14 @@ int main(){
         return 1;
     }
 
-    Student students[MAX_STUDENT_NUMBER];
-    int numberOfStudents=0;
+    int currentRollNumber;
+    char currentName[MAX_NAME_LENGTH];
+    float currentTotalMarks;
 
-    while(fscanf(studentData,"%d,%[^,],%f",&students[numberOfStudents].rollNumber,students[numberOfStudents].name,&students[numberOfStudents].totalMarks)!=EOF){
-        printf("Inserting Node with roll number %d ...\n", students[numberOfStudents].rollNumber);
-        root=insertNode(root,students[numberOfStudents]);
-        printf("Node with roll number %d inserted successfully.\n\n", students[numberOfStudents].rollNumber);
-        numberOfStudents++;
+    while(fscanf(studentData,"%d,%[^,],%f",&currentRollNumber,currentName,&currentTotalMarks)!=EOF){
+        printf("Inserting Node with roll number %d ...\n", currentRollNumber);
+        root=insertNode(root,createStudent(currentRollNumber,currentName,currentTotalMarks));
+        printf("Node with roll number %d inserted successfully.\n\n", currentRollNumber);
     }
 
     fclose(studentData);
