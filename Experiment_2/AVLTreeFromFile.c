@@ -144,7 +144,6 @@ int main(){
     }
 
     Student students[MAX_STUDENT_NUMBER];
-    Student copyOfStudents[MAX_STUDENT_NUMBER];
     int numberOfStudents=0;
 
     while(fscanf(studentData,"%d,%[^,],%f",&students[numberOfStudents].rollNumber,students[numberOfStudents].name,&students[numberOfStudents].totalMarks)!=EOF){
