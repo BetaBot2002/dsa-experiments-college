@@ -77,33 +77,51 @@ AVLNode* rightRotate(AVLNode* root){
     return current;
 }
 
-AVLNode* insertNode(AVLNode* root,Student data){
-    if (root==NULL){ 
+AVLNode* insertNode(AVLNode* root, Student data) {
+    if (root == NULL) {
+        printf("\tCreating a new node with roll number %d\n", data.rollNumber);
         return createNode(data);
     }
-    if(data.rollNumber<root->data.rollNumber) root->left=insertNode(root->left,data);
-    else if(data.rollNumber>root->data.rollNumber) root->right=insertNode(root->right,data);
 
-    root->height=1+maxOf(getHeight(root->left),getHeight(root->right));
+    printf("\tComparing roll number %d with the current node's roll number %d\n", data.rollNumber, root->data.rollNumber);
 
-    int balance=getBalance(root);
+    if (data.rollNumber < root->data.rollNumber) {
+        printf("\tGoing to the left subtree\n");
+        root->left = insertNode(root->left, data);
+    } else if (data.rollNumber > root->data.rollNumber) {
+        printf("\tGoing to the right subtree\n");
+        root->right = insertNode(root->right, data);
+    } else {
+        printf("\tNode with roll number %d already exists, not inserting duplicate\n", data.rollNumber);
+        return root; // Node with the same roll number already exists
+    }
 
-    if(balance>1 && data.rollNumber<root->left->data.rollNumber){
+    printf("\tUpdating height of the node with roll %d\n",root->data.rollNumber);
+    root->height = 1 + maxOf(getHeight(root->left), getHeight(root->right));
+
+    int balance = getBalance(root);
+
+    if (balance > 1 && data.rollNumber < root->left->data.rollNumber) {
+        printf("\tPerforming right rotation\n");
         return rightRotate(root);
     }
-    if(balance<-1 && data.rollNumber>root->right->data.rollNumber){
+    if (balance < -1 && data.rollNumber > root->right->data.rollNumber) {
+        printf("\tPerforming left rotation\n");
         return leftRotate(root);
     }
-    if(balance>1 && data.rollNumber>root->left->data.rollNumber){
-        root->left=leftRotate(root->left);
+    if (balance > 1 && data.rollNumber > root->left->data.rollNumber) {
+        printf("\tPerforming left rotation on left child and then right rotation on current node\n");
+        root->left = leftRotate(root->left);
         return rightRotate(root);
     }
-    if(balance<-1 && data.rollNumber<root->right->data.rollNumber){
-        root->right=rightRotate(root->right);
+    if (balance < -1 && data.rollNumber < root->right->data.rollNumber) {
+        printf("\tPerforming right rotation on right child and then left rotation on current node\n");
+        root->right = rightRotate(root->right);
         return leftRotate(root);
     }
     return root;
 }
+
 
 void inorderTraversal(AVLNode* root,FILE* file){
     if(root!=NULL){
@@ -186,7 +204,9 @@ int main(){
     int numberOfStudents=0;
 
     while(fscanf(studentData,"%d,%[^,],%f",&students[numberOfStudents].rollNumber,students[numberOfStudents].name,&students[numberOfStudents].totalMarks)!=EOF){
+        printf("Inserting Node with roll number %d ...\n", students[numberOfStudents].rollNumber);
         root=insertNode(root,students[numberOfStudents]);
+        printf("Node with roll number %d inserted successfully.\n\n", students[numberOfStudents].rollNumber);
         numberOfStudents++;
     }
 
