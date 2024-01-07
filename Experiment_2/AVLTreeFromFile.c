@@ -33,6 +33,10 @@ void printStudent(Student student){
     printf("\t%d\t%s\t%.2f\n",student.rollNumber,student.name,student.totalMarks);
 }
 
+void writeStudentInFile(Student student,FILE* file){
+    fprintf(file, "%d,%s,%.2f\n", student.rollNumber, student.name, student.totalMarks);
+}
+
 int getHeight(AVLNode* root){
     if(root==NULL) return 0;
     return root->height;
@@ -110,29 +114,53 @@ AVLNode* insertNode(AVLNode* root,Student data){
 }
 
 
-void inorderTraversal(AVLNode* root){
+void inorderTraversal(AVLNode* root,FILE* file){
     if(root!=NULL){
-        inorderTraversal(root->left);
-        printStudent(root->data);
-        inorderTraversal(root->right);
+        inorderTraversal(root->left,file);
+        writeStudentInFile(root->data,file);
+        inorderTraversal(root->right,file);
     }
 }
 
-void preorderTraversal(AVLNode* root){
+void preorderTraversal(AVLNode* root,FILE* file){
     if(root!=NULL){
-        printStudent(root->data);
-        preorderTraversal(root->left);
-        preorderTraversal(root->right);
+        writeStudentInFile(root->data,file);
+        preorderTraversal(root->left,file);
+        preorderTraversal(root->right,file);
     }
 }
 
-void postorderTraversal(AVLNode* root){
+void postorderTraversal(AVLNode* root,FILE* file){
     if(root!=NULL){
-        postorderTraversal(root->left);
-        postorderTraversal(root->right);
-        printStudent(root->data);
+        postorderTraversal(root->left,file);
+        postorderTraversal(root->right,file);
+        writeStudentInFile(root->data,file);
     }
 }
+
+// void inorderTraversal(AVLNode* root){
+//     if(root!=NULL){
+//         inorderTraversal(root->left);
+//         writeStudentInFile(root->data,file);
+//         inorderTraversal(root->right);
+//     }
+// }
+
+// void preorderTraversal(AVLNode* root){
+//     if(root!=NULL){
+//         writeStudentInFile(root->data,file);
+//         preorderTraversal(root->left);
+//         preorderTraversal(root->right);
+//     }
+// }
+
+// void postorderTraversal(AVLNode* root){
+//     if(root!=NULL){
+//         postorderTraversal(root->left);
+//         postorderTraversal(root->right);
+//         writeStudentInFile(root->data,file);
+//     }
+// }
 
 int main(){
     AVLNode* root=NULL;
@@ -155,13 +183,49 @@ int main(){
 
 
     printf("The In Order Traversal of the Tree is:\n");
-    inorderTraversal(root);
+    
+    FILE *traversal=fopen("InOrder.txt","a");
+
+    if(traversal==NULL){
+        printf("ERROR IN OPENING FILE!!\n");
+        return 1;
+    }
+
+    inorderTraversal(root,traversal);
+
+    fclose(studentData);
+
+    
 
     printf("The Pre Order Traversal of the Tree is:\n");
-    preorderTraversal(root);
+    
+    traversal=fopen("PreOrder.txt","a");
+
+    if(traversal==NULL){
+        printf("ERROR IN OPENING FILE!!\n");
+        return 1;
+    }
+
+    preorderTraversal(root,traversal);
+
+    fclose(traversal);
+
+    
 
     printf("The Post Order Traversal of the Tree is:\n");
-    postorderTraversal(root);
+    
+    traversal=fopen("PostOrder.txt","a");
+
+    if(traversal==NULL){
+        printf("ERROR IN OPENING FILE!!\n");
+        return 1;
+    }
+
+    postorderTraversal(root,traversal);
+
+    fclose(traversal);
+
+    
 
     return 0;
 }
