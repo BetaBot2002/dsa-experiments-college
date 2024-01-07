@@ -118,6 +118,22 @@ void inorderTraversal(AVLNode* root){
     }
 }
 
+void preorderTraversal(AVLNode* root){
+    if(root!=NULL){
+        printStudent(root->data);
+        preorderTraversal(root->left);
+        preorderTraversal(root->right);
+    }
+}
+
+void postorderTraversal(AVLNode* root){
+    if(root!=NULL){
+        postorderTraversal(root->left);
+        postorderTraversal(root->right);
+        printStudent(root->data);
+    }
+}
+
 void printTree(AVLNode* root) {
     if (root == NULL) return;
 
@@ -164,6 +180,12 @@ int main(){
 
     printf("The In Order Traversal of the Tree is:\n");
     inorderTraversal(root);
+
+    printf("The Pre Order Traversal of the Tree is:\n");
+    preorderTraversal(root);
+
+    printf("The Post Order Traversal of the Tree is:\n");
+    postorderTraversal(root);
 
     // printf("The Visualization of the Tree:\n");
     // printTree(root);
