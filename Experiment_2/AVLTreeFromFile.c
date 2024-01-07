@@ -201,13 +201,13 @@ int main(){
     fclose(studentData);
 
     // printf("The In Order Traversal of the Tree is:\n");
-    // inorderTraversal(root,traversal);
+    // inorderTraversal(root);
 
     // printf("The Pre Order Traversal of the Tree is:\n");
-    // preorderTraversal(root,traversal);
+    // preorderTraversal(root);
  
     // printf("The Post Order Traversal of the Tree is:\n");
-    // postorderTraversal(root,traversal);
+    // postorderTraversal(root);
 
     traverseIntoFile(root,"InOrder","InOrder.txt");
     traverseIntoFile(root,"PreOrder","PreOrder.txt");
