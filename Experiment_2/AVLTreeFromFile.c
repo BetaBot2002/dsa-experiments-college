@@ -79,7 +79,6 @@ AVLNode* rightRotate(AVLNode* root){
 
 AVLNode* insertNode(AVLNode* root,Student data){
     if (root==NULL){ 
-        printf("Student Inserted: %d\n",data.rollNumber);
         return createNode(data);
     }
     if(data.rollNumber<root->data.rollNumber) root->left=insertNode(root->left,data);
@@ -90,27 +89,20 @@ AVLNode* insertNode(AVLNode* root,Student data){
     int balance=getBalance(root);
 
     if(balance>1 && data.rollNumber<root->left->data.rollNumber){
-        printf("Right Rotation Performed.\n");
         return rightRotate(root);
     }
     if(balance<-1 && data.rollNumber>root->right->data.rollNumber){
-        printf("Left Rotation Performed.\n");
         return leftRotate(root);
     }
     if(balance>1 && data.rollNumber>root->left->data.rollNumber){
-        printf("Left-Right Rotation Performed.\n");
         root->left=leftRotate(root->left);
         return rightRotate(root);
     }
     if(balance<-1 && data.rollNumber<root->right->data.rollNumber){
-        printf("Right-Left Rotation Performed.\n");
         root->right=rightRotate(root->right);
         return leftRotate(root);
     }
-
-    printf("No Rotation Performed. Tree Balanced.\n");
     return root;
-    
 }
 
 void inorderTraversal(AVLNode* root,FILE* file){
