@@ -113,7 +113,6 @@ AVLNode* insertNode(AVLNode* root,Student data){
     
 }
 
-
 void inorderTraversal(AVLNode* root,FILE* file){
     if(root!=NULL){
         inorderTraversal(root->left,file);
@@ -136,6 +135,26 @@ void postorderTraversal(AVLNode* root,FILE* file){
         postorderTraversal(root->right,file);
         writeStudentInFile(root->data,file);
     }
+}
+
+void traverseIntoFile(AVLNode* root,char* traversalType,char* fileName){
+    fclose(fopen(fileName,"w")); //To clear anything in the file before opening it in append mode, so that no recurring data exists 
+    FILE *traversal=fopen(fileName,"a");
+
+    if(traversal==NULL){
+        printf("ERROR IN OPENING FILE!!\n");
+        return;
+    }
+
+    if(!strcmp("InOrder",traversalType)){
+        inorderTraversal(root,traversal);
+    }else if(!strcmp("PreOrder",traversalType)){
+        preorderTraversal(root,traversal);
+    }else if(!strcmp("PostOrder",traversalType)){
+        postorderTraversal(root,traversal);
+    }
+
+    fclose(traversal);
 }
 
 // void inorderTraversal(AVLNode* root){
@@ -181,51 +200,18 @@ int main(){
 
     fclose(studentData);
 
+    // printf("The In Order Traversal of the Tree is:\n");
+    // inorderTraversal(root,traversal);
 
-    printf("The In Order Traversal of the Tree is:\n");
-    
-    FILE *traversal=fopen("InOrder.txt","a");
+    // printf("The Pre Order Traversal of the Tree is:\n");
+    // preorderTraversal(root,traversal);
+ 
+    // printf("The Post Order Traversal of the Tree is:\n");
+    // postorderTraversal(root,traversal);
 
-    if(traversal==NULL){
-        printf("ERROR IN OPENING FILE!!\n");
-        return 1;
-    }
-
-    inorderTraversal(root,traversal);
-
-    fclose(studentData);
-
-    
-
-    printf("The Pre Order Traversal of the Tree is:\n");
-    
-    traversal=fopen("PreOrder.txt","a");
-
-    if(traversal==NULL){
-        printf("ERROR IN OPENING FILE!!\n");
-        return 1;
-    }
-
-    preorderTraversal(root,traversal);
-
-    fclose(traversal);
-
-    
-
-    printf("The Post Order Traversal of the Tree is:\n");
-    
-    traversal=fopen("PostOrder.txt","a");
-
-    if(traversal==NULL){
-        printf("ERROR IN OPENING FILE!!\n");
-        return 1;
-    }
-
-    postorderTraversal(root,traversal);
-
-    fclose(traversal);
-
-    
+    traverseIntoFile(root,"InOrder","InOrder.txt");
+    traverseIntoFile(root,"PreOrder","PreOrder.txt");
+    traverseIntoFile(root,"PostOrder","PostOrder.txt");
 
     return 0;
 }
