@@ -141,14 +141,14 @@ void postorderTraversal(AVLNode* root,FILE* file){
 // void inorderTraversal(AVLNode* root){
 //     if(root!=NULL){
 //         inorderTraversal(root->left);
-//         writeStudentInFile(root->data,file);
+//         writeStudentInFile(root->data);
 //         inorderTraversal(root->right);
 //     }
 // }
 
 // void preorderTraversal(AVLNode* root){
 //     if(root!=NULL){
-//         writeStudentInFile(root->data,file);
+//         writeStudentInFile(root->data);
 //         preorderTraversal(root->left);
 //         preorderTraversal(root->right);
 //     }
@@ -158,7 +158,7 @@ void postorderTraversal(AVLNode* root,FILE* file){
 //     if(root!=NULL){
 //         postorderTraversal(root->left);
 //         postorderTraversal(root->right);
-//         writeStudentInFile(root->data,file);
+//         writeStudentInFile(root->data);
 //     }
 // }
 
