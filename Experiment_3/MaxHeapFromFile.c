@@ -44,7 +44,7 @@ void swap(Student *a,Student *b){
     Student temp=*a;
     *a=*b;
     *b=temp;
-    printf("Swapped %d,%d\n",a->rollNumber,b->rollNumber);
+    // printf("Swapped %d,%d\n",a->rollNumber,b->rollNumber);
 }
 
 void maxHeapify(MaxHeap* heap,int index){
@@ -52,10 +52,7 @@ void maxHeapify(MaxHeap* heap,int index){
     int left=2*index+1;
     int right=2*index+2;
 
-    if(left<heap->size && heap->studentArray[max].rollNumber<heap->studentArray[left].rollNumber) {
-        printf("In IF 1\n");
-        max=left;
-    }
+    if(left<heap->size && heap->studentArray[max].rollNumber<heap->studentArray[left].rollNumber) max=left;
     if(right<heap->size && heap->studentArray[max].rollNumber<heap->studentArray[right].rollNumber) max=right;
 
     if(max!=index){
@@ -158,9 +155,9 @@ int main(){
     traverseIntoFile(heap,"PreOrder","PreOrder.txt");
     traverseIntoFile(heap,"PostOrder","PostOrder.txt");
 
-    for(int i=0;i<heap->size;i++){
-        printStudent(heap->studentArray[i]);
-    }
+    // for(int i=0;i<heap->size;i++){
+    //     printStudent(heap->studentArray[i]);
+    // }
 
     return 0;
 }
