@@ -44,6 +44,7 @@ void swap(Student *a,Student *b){
     Student temp=*a;
     *a=*b;
     *b=temp;
+    printf("Swapped %d,%d\n",a->rollNumber,b->rollNumber);
 }
 
 void maxHeapify(MaxHeap* heap,int index){
@@ -51,7 +52,10 @@ void maxHeapify(MaxHeap* heap,int index){
     int left=2*index+1;
     int right=2*index+2;
 
-    if(left<heap->size && heap->studentArray[max].rollNumber<heap->studentArray[left].rollNumber) max=left;
+    if(left<heap->size && heap->studentArray[max].rollNumber<heap->studentArray[left].rollNumber) {
+        printf("In IF 1\n");
+        max=left;
+    }
     if(right<heap->size && heap->studentArray[max].rollNumber<heap->studentArray[right].rollNumber) max=right;
 
     if(max!=index){
@@ -63,12 +67,14 @@ void maxHeapify(MaxHeap* heap,int index){
 
 void insert(MaxHeap* heap,Student student){
     if(heap->size==MAX_STUDENT_NUMBER){
-        printf("Heap Overflow. Cannor Insert!!\n");
+        printf("Heap Overflow. Cannot Insert!!\n");
         return;
     }
 
     heap->studentArray[heap->size++]=student;
-    maxHeapify(heap,heap->size-1);
+    for (int i = heap->size / 2 - 1; i >= 0; --i) {
+        maxHeapify(heap, i);
+    }
 }
 
 void inorderTraversal(MaxHeap* heap,int index,FILE* file){
@@ -151,6 +157,10 @@ int main(){
     traverseIntoFile(heap,"InOrder","InOrder.txt");
     traverseIntoFile(heap,"PreOrder","PreOrder.txt");
     traverseIntoFile(heap,"PostOrder","PostOrder.txt");
+
+    for(int i=0;i<heap->size;i++){
+        printStudent(heap->studentArray[i]);
+    }
 
     return 0;
 }
