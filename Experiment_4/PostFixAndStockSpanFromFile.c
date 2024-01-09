@@ -90,13 +90,13 @@ int evaluate(int a,int b,char symbol,FILE* file){
             result=pow(a,b);
             break;
         default:
-            fprintf(file,"WRONG SYMBOL!!! Skipping Symbol: %c\n",symbol);
+            fprintf(file,"\t> WRONG SYMBOL!!! Skipping Symbol: %c\n",symbol);
             isDefaultCase=true;
             break;
     }
     if(isDefaultCase) return WRONG_SYMBOL;
     else{
-        fprintf(file,"Performed %d%c%d=",a,symbol,b);
+        fprintf(file,"\t> Performed %d%c%d=",a,symbol,b);
         fprintf(file,"%d\n",result);
         return result;
     }
@@ -105,15 +105,15 @@ int evaluate(int a,int b,char symbol,FILE* file){
 void evaluatePostFix(Stack* stack,char input,FILE* file){
     int a=pop(stack);
     int b=pop(stack);
-    fprintf(file,"Data Popped: %d\n",a);
-    fprintf(file,"Data Popped: %d\n",b);
+    fprintf(file,"\t> Data Popped: %d\n",a);
+    fprintf(file,"\t> Data Popped: %d\n",b);
 
     int result=evaluate(a,b,input,file);
     if(result==WRONG_SYMBOL){
         push(stack,b);
         push(stack,a);
-        fprintf(file,"Data Pushed Again: %d\n",b);
-        fprintf(file,"Data Pushed Again: %d\n",a);
+        fprintf(file,"\t> Data Pushed Again: %d\n",b);
+        fprintf(file,"\t> Data Pushed Again: %d\n",a);
     }else{
         push(stack,result);
         fprintf(file,"Result Pushed: %d\n",result);
@@ -164,7 +164,7 @@ int main(){
             int number=toInteger(line);
             fprintf(postFixOutput,"Reading Data: %d\n",number);
             push(postFixStack,number);
-            fprintf(postFixOutput,"%d Pushed to Stack\n",number);
+            fprintf(postFixOutput,"\t> %d Pushed to Stack\n",number);
         }else{
             fprintf(postFixOutput,"Reading Symbol: %c\n",*line);
             evaluatePostFix(postFixStack,*line,postFixOutput);
