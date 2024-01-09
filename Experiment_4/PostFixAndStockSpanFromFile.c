@@ -154,13 +154,29 @@ int main(){
     int postFixEavluated=peek(postFixStack);
     printf("%d\n",postFixEavluated);
 
+    FILE *stockSpanData=fopen("StockSpanData.txt","r");
+    if(stockSpanData==NULL){
+        printf("ERROR IN OPENING FILE!!\n");
+        return 1;
+    }
+
     Stack* stockSpanStack=createStack();
-    int prices[]={100,80,60,70,60,75,85};
-    int numberOfPrices=7;
-    int *spans=(int*)malloc(7*sizeof(int));
+    int prices[100];
+    int numberOfPrices=0;
+
+    while(fgets(line, sizeof(line), stockSpanData) != NULL){
+        if(isDigit(*line)){
+            int number=toInteger(line);
+            prices[numberOfPrices++]=number;
+        }
+    }
+    int *spans=(int*)malloc(numberOfPrices*sizeof(int));
     
     solveStockSpan(stockSpanStack,prices,spans,numberOfPrices);
-    printArray(spans,7);
+    printArray(prices,numberOfPrices);
+    printArray(spans,numberOfPrices);
+
+    fclose(stockSpanData);
 
     return 0;
 }
