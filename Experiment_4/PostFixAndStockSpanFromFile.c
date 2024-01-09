@@ -123,16 +123,22 @@ void evaluatePostFix(Stack* stack,char input,FILE* file){
 void solveStockSpan(Stack* stack,int prices[],int spans[],int numberOfPrices,FILE* file){
     for(int i=0;i<numberOfPrices;i++) spans[i]=0;
     for(int i=0;i<numberOfPrices;i++){
+        fprintf(file,"Day %d (Actual Index %d):\n",i+1,i);
         while (!isEmpty(stack) && prices[peek(stack)]<=prices[i]){
-            pop(stack);
+            int index=pop(stack);
+            fprintf(file,"\tPopped Index: %d\n",index);
         }
         if(isEmpty(stack)){
             spans[i]=i+1;
+            fprintf(file,"\tStack is empty, So, Calculation of span of Day %d will be %d+1\n",i+1,i);
             push(stack,i);
         }else{
             spans[i]=i-peek(stack);
+            fprintf(file,"\tStack is not empty, So, Calculation of span of Day %d will be %d-%d\n",i+1,i,peek(stack));
             push(stack,i);
         }
+        fprintf(file,"\tPushed Index: %d\n",i);
+        fprintf(file,"\tSpan of Day %d: %d\n",i+1,spans[i]);
     }
 }
 
@@ -201,16 +207,19 @@ int main(){
         printf("ERROR IN OPENING FILE!!\n");
         return 1;
     }
-    
-    solveStockSpan(stockSpanStack,prices,spans,numberOfPrices,stockSpanOutput);
+
     fprintf(stockSpanOutput,"Given Prices: ");
     printArrayToFile(prices,numberOfPrices,stockSpanOutput);
+    
+    solveStockSpan(stockSpanStack,prices,spans,numberOfPrices,stockSpanOutput);
+
     fprintf(stockSpanOutput,"Stock Spans: ");
     printArrayToFile(spans,numberOfPrices,stockSpanOutput);
+    fprintf(stockSpanOutput,"Breakdown of Spans:\n");
+    for(int i=0;i<numberOfPrices;i++){
+        fprintf(stockSpanOutput,"Stock Span of Day %d: %d\n",i+1,spans[i]);
+    }
 
     fclose(stockSpanOutput);
-
-    
-
     return 0;
 }
