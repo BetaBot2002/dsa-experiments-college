@@ -132,12 +132,11 @@ void solveStockSpan(Stack* stack,int prices[],int spans[],int numberOfPrices,FIL
         if(isEmpty(stack)){
             spans[i]=i+1;
             fprintf(file,"\tStack is empty, So, Calculation of span of Day %d will be %d+1\n",i+1,i);
-            push(stack,i);
         }else{
             spans[i]=i-peek(stack);
             fprintf(file,"\tStack is not empty, So, Calculation of span of Day %d will be %d-%d\n",i+1,i,peek(stack));
-            push(stack,i);
         }
+        push(stack,i);
         fprintf(file,"\tPushed Index: %d\n",i);
         fprintf(file,"\tSpan of Day %d: %d\n",i+1,spans[i]);
     }
