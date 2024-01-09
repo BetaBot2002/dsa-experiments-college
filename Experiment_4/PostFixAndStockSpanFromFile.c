@@ -70,8 +70,9 @@ int toInteger(char string[]){
     return number;
 }
 
-int evaluate(int a,int b,char symbol){
+int evaluate(int a,int b,char symbol,FILE* file){
     int result=0;
+    bool isDefaultCase=false;
     switch (symbol){
         case '+':
             result=a+b;
@@ -89,22 +90,33 @@ int evaluate(int a,int b,char symbol){
             result=pow(a,b);
             break;
         default:
-            printf("WRONG SYMBOL!!! Skipping Symbol: %c\n",symbol);
-            return WRONG_SYMBOL;
+            fprintf(file,"WRONG SYMBOL!!! Skipping Symbol: %c\n",symbol);
+            isDefaultCase=true;
             break;
     }
-    return result;
+    if(isDefaultCase) return WRONG_SYMBOL;
+    else{
+        fprintf(file,"Performed %d%c%d=",a,symbol,b);
+        fprintf(file,"%d\n",result);
+        return result;
+    }
 }
 
-void evaluatePostFix(Stack* stack,char input){
+void evaluatePostFix(Stack* stack,char input,FILE* file){
     int a=pop(stack);
     int b=pop(stack);
-    int result=evaluate(a,b,input);
+    fprintf(file,"Data Popped: %d\n",a);
+    fprintf(file,"Data Popped: %d\n",b);
+
+    int result=evaluate(a,b,input,file);
     if(result==WRONG_SYMBOL){
         push(stack,b);
         push(stack,a);
+        fprintf(file,"Data Pushed Again: %d\n",b);
+        fprintf(file,"Data Pushed Again: %d\n",a);
     }else{
         push(stack,result);
+        fprintf(file,"Result Pushed: %d\n",result);
     }
 }
 
@@ -140,19 +152,30 @@ int main(){
     char line[100];
     Stack *postFixStack=createStack();
 
+    FILE *postFixOutput=fopen("PostFixOutput.txt","w");
+
+    if(postFixOutput==NULL){
+        printf("ERROR IN OPENING FILE!!\n");
+        return 1;
+    }
+
     while(fgets(line, sizeof(line), postFixData) != NULL){
         if(isDigit(*line)){
             int number=toInteger(line);
+            fprintf(postFixOutput,"Reading Data: %d\n",number);
             push(postFixStack,number);
+            fprintf(postFixOutput,"%d Pushed to Stack\n",number);
         }else{
-            evaluatePostFix(postFixStack,*line);
+            fprintf(postFixOutput,"Reading Symbol: %c\n",*line);
+            evaluatePostFix(postFixStack,*line,postFixOutput);
         }
     }
 
     fclose(postFixData);
 
     int postFixEavluated=peek(postFixStack);
-    printf("%d\n",postFixEavluated);
+    fprintf(postFixOutput,"Result of the Postfix: %d\n",postFixEavluated);
+    fclose(postFixOutput);
 
     FILE *stockSpanData=fopen("StockSpanData.txt","r");
     if(stockSpanData==NULL){

@@ -1,0 +1,38 @@
+Reading Data: 5
+5 Pushed to Stack
+Reading Data: 8
+8 Pushed to Stack
+Reading Symbol: +
+Data Popped: 8
+Data Popped: 5
+Performed 8+5=13
+Result Pushed: 13
+Reading Data: 15
+15 Pushed to Stack
+Reading Symbol: -
+Data Popped: 15
+Data Popped: 13
+Performed 15-13=2
+Result Pushed: 2
+Reading Data: 30
+30 Pushed to Stack
+Reading Symbol: *
+Data Popped: 30
+Data Popped: 2
+Performed 30*2=60
+Result Pushed: 60
+Reading Data: 120
+120 Pushed to Stack
+Reading Symbol: /
+Data Popped: 120
+Data Popped: 60
+Performed 120/60=2
+Result Pushed: 2
+Reading Data: 3
+3 Pushed to Stack
+Reading Symbol: ^
+Data Popped: 3
+Data Popped: 2
+Performed 3^2=9
+Result Pushed: 9
+Result of the Postfix: 9
