@@ -120,7 +120,7 @@ void evaluatePostFix(Stack* stack,char input,FILE* file){
     }
 }
 
-void solveStockSpan(Stack* stack,int prices[],int spans[],int numberOfPrices){
+void solveStockSpan(Stack* stack,int prices[],int spans[],int numberOfPrices,FILE* file){
     for(int i=0;i<numberOfPrices;i++) spans[i]=0;
     for(int i=0;i<numberOfPrices;i++){
         while (!isEmpty(stack) && prices[peek(stack)]<=prices[i]){
@@ -136,9 +136,9 @@ void solveStockSpan(Stack* stack,int prices[],int spans[],int numberOfPrices){
     }
 }
 
-void printArray(int arr[], int size) {
-  for (int i = 0; i < size; printf("%d ", arr[i++]));
-  printf("\n");
+void printArrayToFile(int arr[], int size,FILE* file) {
+  for (int i = 0; i < size; fprintf(file,"%d ", arr[i++]));
+  fprintf(file,"\n");
 }
 
 int main(){
@@ -194,12 +194,23 @@ int main(){
         }
     }
     int *spans=(int*)malloc(numberOfPrices*sizeof(int));
-    
-    solveStockSpan(stockSpanStack,prices,spans,numberOfPrices);
-    printArray(prices,numberOfPrices);
-    printArray(spans,numberOfPrices);
-
     fclose(stockSpanData);
+
+    FILE *stockSpanOutput=fopen("StockSpanOutput.txt","w");
+    if(stockSpanOutput==NULL){
+        printf("ERROR IN OPENING FILE!!\n");
+        return 1;
+    }
+    
+    solveStockSpan(stockSpanStack,prices,spans,numberOfPrices,stockSpanOutput);
+    fprintf(stockSpanOutput,"Given Prices: ");
+    printArrayToFile(prices,numberOfPrices,stockSpanOutput);
+    fprintf(stockSpanOutput,"Stock Spans: ");
+    printArrayToFile(spans,numberOfPrices,stockSpanOutput);
+
+    fclose(stockSpanOutput);
+
+    
 
     return 0;
 }
