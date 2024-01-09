@@ -30,6 +30,12 @@ Performed 120/60=2
 Result Pushed: 2
 Reading Data: 3
 3 Pushed to Stack
+Reading Symbol: p
+Data Popped: 3
+Data Popped: 2
+WRONG SYMBOL!!! Skipping Symbol: p
+Data Pushed Again: 2
+Data Pushed Again: 3
 Reading Symbol: ^
 Data Popped: 3
 Data Popped: 2
