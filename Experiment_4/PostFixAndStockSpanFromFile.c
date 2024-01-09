@@ -124,6 +124,7 @@ void solveStockSpan(Stack* stack,int prices[],int spans[],int numberOfPrices,FIL
     for(int i=0;i<numberOfPrices;i++) spans[i]=0;
     for(int i=0;i<numberOfPrices;i++){
         fprintf(file,"Day %d (Actual Index %d):\n",i+1,i);
+        fprintf(file,"\tPrice: %d\n",prices[i]);
         while (!isEmpty(stack) && prices[peek(stack)]<=prices[i]){
             int index=pop(stack);
             fprintf(file,"\tPopped Index: %d\n",index);
