@@ -108,6 +108,27 @@ void evaluatePostFix(Stack* stack,char input){
     }
 }
 
+void solveStockSpan(Stack* stack,int prices[],int spans[],int numberOfPrices){
+    for(int i=0;i<numberOfPrices;i++) spans[i]=0;
+    for(int i=0;i<numberOfPrices;i++){
+        while (!isEmpty(stack) && prices[peek(stack)]<=prices[i]){
+            pop(stack);
+        }
+        if(isEmpty(stack)){
+            spans[i]=i+1;
+            push(stack,i);
+        }else{
+            spans[i]=i-peek(stack);
+            push(stack,i);
+        }
+    }
+}
+
+void printArray(int arr[], int size) {
+  for (int i = 0; i < size; printf("%d ", arr[i++]));
+  printf("\n");
+}
+
 int main(){
     FILE *postFixData=fopen("PostFixData.txt","r");
 
@@ -132,6 +153,14 @@ int main(){
 
     int postFixEavluated=peek(postFixStack);
     printf("%d\n",postFixEavluated);
+
+    Stack* stockSpanStack=createStack();
+    int prices[]={100,80,60,70,60,75,85};
+    int numberOfPrices=7;
+    int *spans=(int*)malloc(7*sizeof(int));
+    
+    solveStockSpan(stockSpanStack,prices,spans,numberOfPrices);
+    printArray(spans,7);
 
     return 0;
 }
