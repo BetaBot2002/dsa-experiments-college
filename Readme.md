@@ -14,7 +14,7 @@ tree.
 Repeat Experiment-2 but with a Heap implemented using an array.
 ### Experiment-4:
 Demonstrate the efficacy of a stack in solving a) postfix expression
-evaluation and b) Stack Span problems. Prepare you own input files to prove the
+evaluation and b) Stock Span problems. Prepare you own input files to prove the
 correctness of your programs. There should be output files tracing the different
 parts of your implementation at different debug levels.
 ### Experiment-5:
